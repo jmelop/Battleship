@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MapDisplay from './MapDisplay';
-import Spinner from './Spinner';
+import MapDisplay from './components/MapDisplay';
+import Spinner from './components/Spinner';
 
 class App extends React.Component{
 
@@ -33,7 +33,7 @@ class App extends React.Component{
 
     render(){
         return (
-            <div>
+            <div >
                 {this.renderContent()}
             </div>
         )
