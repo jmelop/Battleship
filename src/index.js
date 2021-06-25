@@ -1,17 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import MapDisplay from './MapDisplay';
+import Spinner from './Spinner';
+
+class App extends React.Component{
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = { lat: null, long: null, errorMessage: ''};
+    }
+
+    componentDidMount() {
+        window.navigator.geolocation.getCurrentPosition(
+            position => this.setState({ lat: position.coords.latitude, long: position.coords.longitude}),
+            err => this.setState({ errorMessage: err.message })
+        );
+    }
+
+    renderContent(){
+        if (this.state.errorMessage && !this.state.lat && !this.state.long){
+            return <div>Error: {this.state.errorMessage}</div>
+        }
+
+        if (!this.state.errorMessage && this.state.lat && this.state.long) {
+            return <MapDisplay lat={this.state.lat} long={this.state.long} />
+        }
+
+        return <Spinner message="Please you need to accept the location request to continue" />
+    }
+
+    render(){
+        return (
+            <div>
+                {this.renderContent()}
+            </div>
+        )
+    }
+
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    <App />,
+    document.querySelector('#root')
+)
