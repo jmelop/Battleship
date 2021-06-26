@@ -1,12 +1,12 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = { vessel: '' };
+    state = { term: '' };
 
     onFormSubmit = (event) => {
         event.preventDefault();
 
-        console.log(this.state.vessel);
+        this.props.onSubmit(this.state.term);
     }
 
 
@@ -18,8 +18,8 @@ class SearchBar extends React.Component {
                         <label>Vessel Finder</label>
                         <input 
                         type="text" 
-                        value={this.state.vessel} 
-                        onChange={(e) => this.setState({ vessel: e.target.value })} />
+                        value={this.state.term} 
+                        onChange={(e) => this.setState({ term: e.target.value })} />
                     </div>
                 </form>
                 
