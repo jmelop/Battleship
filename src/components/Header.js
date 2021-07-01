@@ -7,6 +7,9 @@ const Header = () => {
             <Link href="/" className="item">
                 Map
             </Link>
+            <Link href="/vessels" className="item">
+                Vessels
+            </Link>
         </div>
     );
 }
